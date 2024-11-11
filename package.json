@@ -1,6 +1,9 @@
 {
   "name": "geneticar",
   "version": "0.1.0",
+  "description": "A genetic algorithm racing simulator",
+  "license": "MIT",
+  "author": "Leif Gaebler <Lorkenpeist@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "next dev",
