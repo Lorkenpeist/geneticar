@@ -1,15 +1,15 @@
 import type { Dispatch, SetStateAction } from "react";
 import { z } from "zod";
 import {
-  BOX_COUNT_MAX,
-  BOX_COUNT_MIN,
+  CAR_COUNT_MAX,
+  CAR_COUNT_MIN,
   SimulationOptions,
 } from "@/app/lib/simulation-engine";
 import SmallIntegerSlider from "./small-integer-slider";
 import { Button } from "./button";
 
 const FormSchema = z.object({
-  boxCount: z.coerce.number().int().gte(BOX_COUNT_MIN).lte(BOX_COUNT_MAX),
+  carCount: z.coerce.number().int().gte(CAR_COUNT_MIN).lte(CAR_COUNT_MAX),
 });
 
 export default function SimulationOptionsForm({
@@ -21,7 +21,7 @@ export default function SimulationOptionsForm({
 }) {
   function formAction(formData: FormData) {
     const newOptions: SimulationOptions = FormSchema.parse({
-      boxCount: formData.get("boxCount"),
+      carCount: formData.get("carCount"),
     });
     setOptions(newOptions);
   }
@@ -36,12 +36,12 @@ export default function SimulationOptionsForm({
           <div className="rounded-md border border-gray-200 bg-white dark:bg-gray-900 px-[14px] py-3">
             <div className="flex flex-col gap-4">
               <SmallIntegerSlider
-                id="boxCount"
-                name="boxCount"
-                label="Number of boxen"
-                min={BOX_COUNT_MIN}
-                max={BOX_COUNT_MAX}
-                defaultValue={options.boxCount}
+                id="carCount"
+                name="carCount"
+                label="Number of cars"
+                min={CAR_COUNT_MIN}
+                max={CAR_COUNT_MAX}
+                defaultValue={options.carCount}
               />
             </div>
           </div>

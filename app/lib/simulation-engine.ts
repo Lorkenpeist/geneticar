@@ -1,23 +1,24 @@
 import { Engine, Runner, Bodies, Composite, World } from "matter-js";
+import { car } from "./car";
 
 export interface SimulationOptions {
-  boxCount: number;
+  carCount: number;
 }
 
-export const BOX_COUNT_MIN = 1;
-export const BOX_COUNT_MAX = 5;
+export const CAR_COUNT_MIN = 1;
+export const CAR_COUNT_MAX = 5;
 
 class SimulationEngine {
   readonly engine = Engine.create();
   private readonly runner = Runner.create();
 
   start(options: SimulationOptions) {
-    const boxen = Array.from(Array(options.boxCount), (_, i) =>
-      Bodies.rectangle(400 + 50 * i, 50 + 100 * i, 80, 80),
+    const cars = Array.from(Array(options.carCount), (_, i) =>
+      car(400 + 50 * i, 50 + 100 * i, 100, 50, 20),
     );
     const ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
-    Composite.add(this.engine.world, [...boxen, ground]);
+    Composite.add(this.engine.world, [...cars, ground]);
 
     Runner.run(this.runner, this.engine);
   }
