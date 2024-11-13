@@ -5,7 +5,13 @@ import { SimulationPanel } from "./ui/simulation-panel";
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <header className="flex flex-col text-center">
+      <header className="flex flex-col items-center">
+        <Image
+          src="/geneticar.svg"
+          alt="GenetiCar icon"
+          width={100}
+          height={100}
+        />
         <h1 className="text-2xl">{metadata.title?.toString()}</h1>
         {metadata.description}
       </header>
