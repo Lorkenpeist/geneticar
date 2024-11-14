@@ -15,7 +15,7 @@ export function SimulationPanel() {
       carDimensions: {
         width: 100,
         height: 50,
-        wheelSize: 50,
+        wheelSize: 30,
       },
     },
   );
