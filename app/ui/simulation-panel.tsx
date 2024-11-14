@@ -10,7 +10,14 @@ import SimulationOptionsForm from "./simulation-options-form";
 
 export function SimulationPanel() {
   const [simulationOptions, setSimulationOptions] = useState<SimulationOptions>(
-    { carCount: 3 },
+    {
+      carCount: 3,
+      carDimensions: {
+        width: 100,
+        height: 50,
+        wheelSize: 50,
+      },
+    },
   );
   useEffect(() => {
     simulationEngine.start(simulationOptions);

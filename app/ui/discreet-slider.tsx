@@ -1,9 +1,10 @@
-export default function SmallIntegerSlider({
+export default function DiscreetSlider({
   id,
   name,
   label,
   min,
   max,
+  step = 1,
   defaultValue,
 }: {
   id: string;
@@ -11,6 +12,7 @@ export default function SmallIntegerSlider({
   label: string;
   min: number;
   max: number;
+  step?: number;
   defaultValue: number;
 }) {
   return (
@@ -26,13 +28,16 @@ export default function SmallIntegerSlider({
           type="range"
           min={min}
           max={max}
-          step={1}
+          step={step}
           defaultValue={defaultValue}
           list={`${id}:markers`}
           className="cursor-pointer"
         />
         <datalist id={`${id}:markers`}>
-          {Array.from({ length: max - min + 1 }, (_, i) => i + min).map((i) => (
+          {Array.from(
+            { length: (max - min) / step + 1 },
+            (_, i) => i * step + min,
+          ).map((i) => (
             <option value={i} key={i.toString()}></option>
           ))}
         </datalist>
