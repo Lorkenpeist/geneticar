@@ -25,7 +25,7 @@ export function car(
   const axelA = Constraint.create({
     bodyA: body,
     pointA: { x: wheelAOffset, y: wheelYOffset },
-    bodyB: wheelA.bodies[0],
+    bodyB: wheelA,
     stiffness: 1,
     length: 0,
   });
@@ -33,7 +33,7 @@ export function car(
   const axelB = Constraint.create({
     bodyA: body,
     pointA: { x: wheelBOffset, y: wheelYOffset },
-    bodyB: wheelB.bodies[0],
+    bodyB: wheelB,
     stiffness: 1,
     length: 0,
   });
@@ -48,9 +48,7 @@ export function car(
 }
 
 function wheel(group: number, x: number, y: number, radius: number) {
-  const wheel = Composite.create({ label: "wheel" });
-
-  const rim = Bodies.circle(x, y, radius, {
+  return Bodies.circle(x, y, radius, {
     collisionFilter: { group },
     friction: 0.8,
     render: {
@@ -61,35 +59,4 @@ function wheel(group: number, x: number, y: number, radius: number) {
       },
     },
   });
-
-  const spoke = Bodies.rectangle(x, y, radius * 2, radius * 0.01, {
-    collisionFilter: { group },
-    density: 0.000001,
-  });
-
-  const spokeWeldA = Constraint.create({
-    bodyA: spoke,
-    pointA: { x: radius, y: 0 },
-    bodyB: rim,
-    pointB: { x: radius, y: 0 },
-    stiffness: 1,
-    length: 0,
-    render: { visible: false },
-  });
-  const spokeWeldB = Constraint.create({
-    bodyA: spoke,
-    pointA: { x: -radius, y: 0 },
-    bodyB: rim,
-    pointB: { x: -radius, y: 0 },
-    stiffness: 1,
-    length: 0,
-    render: { visible: false },
-  });
-
-  Composite.add(wheel, rim);
-  Composite.add(wheel, spoke);
-  Composite.add(wheel, spokeWeldA);
-  Composite.add(wheel, spokeWeldB);
-
-  return wheel;
 }
