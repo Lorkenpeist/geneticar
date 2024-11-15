@@ -9,8 +9,8 @@ import {
   CAR_WHEEL_SIZE_MIN,
   CAR_WIDTH_MAX,
   CAR_WIDTH_MIN,
-  SimulationOptions,
-} from "@/app/lib/simulation-engine";
+} from "@/app/lib/constants";
+import { SimulationOptions } from "@/app/lib/simulation-engine";
 import DiscreetSlider from "./discreet-slider";
 import { Button } from "./button";
 

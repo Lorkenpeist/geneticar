@@ -12,15 +12,6 @@ export interface SimulationOptions {
   carDimensions: CarDimensionOptions;
 }
 
-export const CAR_COUNT_MIN = 1;
-export const CAR_COUNT_MAX = 5;
-export const CAR_WIDTH_MIN = 10;
-export const CAR_WIDTH_MAX = 100;
-export const CAR_HEIGHT_MIN = 10;
-export const CAR_HEIGHT_MAX = 100;
-export const CAR_WHEEL_SIZE_MIN = 10;
-export const CAR_WHEEL_SIZE_MAX = 50;
-
 class SimulationEngine {
   readonly engine = Engine.create();
   private readonly runner = Runner.create();

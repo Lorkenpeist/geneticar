@@ -1,4 +1,5 @@
 import { Body, Bodies, Composite, Constraint } from "matter-js";
+import { WHEEL_SPRITE_SIZE } from "./constants";
 
 export function car(
   x: number,
@@ -52,6 +53,13 @@ function wheel(group: number, x: number, y: number, radius: number) {
   const rim = Bodies.circle(x, y, radius, {
     collisionFilter: { group },
     friction: 0.8,
+    render: {
+      sprite: {
+        texture: "/geneticar-wheel.svg",
+        xScale: (2 * radius) / WHEEL_SPRITE_SIZE,
+        yScale: (2 * radius) / WHEEL_SPRITE_SIZE,
+      },
+    },
   });
 
   const spoke = Bodies.rectangle(x, y, radius * 2, radius * 0.01, {
