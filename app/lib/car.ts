@@ -1,5 +1,5 @@
 import { Body, Bodies, Composite, Constraint } from "matter-js";
-import { WHEEL_SPRITE_SIZE } from "./constants";
+import { WHEEL_SPRITE_LOCATION, WHEEL_SPRITE_SIZE } from "./constants";
 
 export function car(
   x: number,
@@ -53,7 +53,7 @@ function wheel(group: number, x: number, y: number, radius: number) {
     friction: 0.8,
     render: {
       sprite: {
-        texture: "/geneticar-wheel.svg",
+        texture: WHEEL_SPRITE_LOCATION,
         xScale: (2 * radius) / WHEEL_SPRITE_SIZE,
         yScale: (2 * radius) / WHEEL_SPRITE_SIZE,
       },

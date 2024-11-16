@@ -9,4 +9,5 @@ export const CAR_WHEEL_SIZE_MIN = 10;
 export const CAR_WHEEL_SIZE_MAX = 50;
 
 // Constants for rendering
-export const WHEEL_SPRITE_SIZE = 100;
+export const WHEEL_SPRITE_LOCATION = "/wheel-sectors-svgrepo-com.svg";
+export const WHEEL_SPRITE_SIZE = 800;
