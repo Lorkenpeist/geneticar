@@ -17,7 +17,11 @@ export function SimulationCanvas() {
     if (!canvas) {
       throw Error("Could not get canvas for renderer!");
     }
-    const render = Render.create({ engine: simulationEngine.engine, canvas });
+    const render = Render.create({
+      engine: simulationEngine.engine,
+      canvas,
+      options: { wireframes: false },
+    });
     Render.run(render);
   }, []);
 
