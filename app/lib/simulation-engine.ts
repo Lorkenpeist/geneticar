@@ -1,15 +1,9 @@
 import { Engine, Runner, Bodies, Composite, World } from "matter-js";
-import { car } from "./car";
-
-export interface CarDimensionOptions {
-  width: number;
-  height: number;
-  wheelSize: number;
-}
+import { Car, CarProperties } from "./car";
 
 export interface SimulationOptions {
   carCount: number;
-  carDimensions: CarDimensionOptions;
+  carProperties: CarProperties;
 }
 
 class SimulationEngine {
@@ -17,18 +11,19 @@ class SimulationEngine {
   private readonly runner = Runner.create();
 
   start(options: SimulationOptions) {
-    const cars = Array.from(Array(options.carCount), (_, i) =>
-      car(
-        400 + 50 * i,
-        50 + 100 * i,
-        options.carDimensions.width,
-        options.carDimensions.height,
-        options.carDimensions.wheelSize,
-      ),
-    );
+    const cars = Array.from(Array(options.carCount), (_, i) => {
+      const car = new Car(options.carProperties, {
+        x: 400 + 50 * i,
+        y: 50 + 100 * i,
+      });
+      return car;
+    });
     const ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
-    Composite.add(this.engine.world, [...cars, ground]);
+    Composite.add(this.engine.world, [
+      ...cars.map((car) => car.composite),
+      ground,
+    ]);
 
     Runner.run(this.runner, this.engine);
   }

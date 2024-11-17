@@ -16,7 +16,7 @@ import { Button } from "./button";
 
 const FormSchema = z.object({
   carCount: z.coerce.number().int().gte(CAR_COUNT_MIN).lte(CAR_COUNT_MAX),
-  carDimensions: z.object({
+  carProperties: z.object({
     width: z.coerce.number().int().gte(CAR_WIDTH_MIN).lte(CAR_WIDTH_MAX),
     height: z.coerce.number().int().gte(CAR_HEIGHT_MIN).lte(CAR_HEIGHT_MAX),
     wheelSize: z.coerce
@@ -37,7 +37,7 @@ export default function SimulationOptionsForm({
   function formAction(formData: FormData) {
     const newOptions: SimulationOptions = FormSchema.parse({
       carCount: formData.get("carCount"),
-      carDimensions: {
+      carProperties: {
         width: formData.get("carWidth"),
         height: formData.get("carHeight"),
         wheelSize: formData.get("carWheelSize"),
@@ -70,7 +70,7 @@ export default function SimulationOptionsForm({
                 min={CAR_WIDTH_MIN}
                 max={CAR_WIDTH_MAX}
                 step={10}
-                defaultValue={options.carDimensions.width}
+                defaultValue={options.carProperties.width}
               />
               <DiscreetSlider
                 id="carHeight"
@@ -79,7 +79,7 @@ export default function SimulationOptionsForm({
                 min={CAR_HEIGHT_MIN}
                 max={CAR_HEIGHT_MAX}
                 step={10}
-                defaultValue={options.carDimensions.height}
+                defaultValue={options.carProperties.height}
               />
               <DiscreetSlider
                 id="carWheelSize"
@@ -88,7 +88,7 @@ export default function SimulationOptionsForm({
                 min={CAR_WHEEL_SIZE_MIN}
                 max={CAR_WHEEL_SIZE_MAX}
                 step={10}
-                defaultValue={options.carDimensions.wheelSize}
+                defaultValue={options.carProperties.wheelSize}
               />
             </div>
           </div>
