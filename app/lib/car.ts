@@ -5,6 +5,7 @@ export interface CarProperties {
   width: number;
   height: number;
   wheelSize: number;
+  torque: number;
 }
 
 export class Car {
@@ -49,6 +50,15 @@ export class Car {
     Composite.add(this.composite, axels);
 
     Composite.translate(this.composite, position);
+  }
+
+  // apply torque to the wheels
+  drive() {
+    this.wheels.forEach((wheel) => {
+      // TODO: variable torque balance
+      wheel.torque += this.props.torque / 2;
+      console.log(`My torque is ${this.props.torque}`);
+    });
   }
 
   // construct the wheel

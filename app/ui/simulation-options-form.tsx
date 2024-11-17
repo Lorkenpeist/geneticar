@@ -9,6 +9,8 @@ import {
   CAR_WHEEL_SIZE_MIN,
   CAR_WIDTH_MAX,
   CAR_WIDTH_MIN,
+  CAR_TORQUE_MIN,
+  CAR_TORQUE_MAX,
 } from "@/app/lib/constants";
 import { SimulationOptions } from "@/app/lib/simulation-engine";
 import DiscreetSlider from "./discreet-slider";
@@ -24,6 +26,7 @@ const FormSchema = z.object({
       .int()
       .gte(CAR_WHEEL_SIZE_MIN)
       .lte(CAR_WHEEL_SIZE_MAX),
+    torque: z.coerce.number().gte(CAR_TORQUE_MIN).lte(CAR_TORQUE_MAX),
   }),
 });
 
@@ -41,6 +44,7 @@ export default function SimulationOptionsForm({
         width: formData.get("carWidth"),
         height: formData.get("carHeight"),
         wheelSize: formData.get("carWheelSize"),
+        torque: formData.get("carTorque"),
       },
     });
     setOptions(newOptions);
@@ -89,6 +93,15 @@ export default function SimulationOptionsForm({
                 max={CAR_WHEEL_SIZE_MAX}
                 step={10}
                 defaultValue={options.carProperties.wheelSize}
+              />
+              <DiscreetSlider
+                id="carTorque"
+                name="carTorque"
+                label="Torque"
+                min={CAR_TORQUE_MIN}
+                max={CAR_TORQUE_MAX}
+                step={0.1}
+                defaultValue={options.carProperties.torque}
               />
             </div>
           </div>

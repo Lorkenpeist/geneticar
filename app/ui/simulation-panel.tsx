@@ -16,6 +16,7 @@ export function SimulationPanel() {
         width: 100,
         height: 50,
         wheelSize: 30,
+        torque: 0.5,
       },
     },
   );

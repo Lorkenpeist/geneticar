@@ -7,6 +7,8 @@ export const CAR_HEIGHT_MIN = 10;
 export const CAR_HEIGHT_MAX = 100;
 export const CAR_WHEEL_SIZE_MIN = 10;
 export const CAR_WHEEL_SIZE_MAX = 50;
+export const CAR_TORQUE_MIN = 0;
+export const CAR_TORQUE_MAX = 1;
 
 // Constants for rendering
 export const WHEEL_SPRITE_LOCATION = "/wheel-sectors-svgrepo-com.svg";
