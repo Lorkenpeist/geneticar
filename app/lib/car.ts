@@ -49,7 +49,27 @@ export class Car {
     Composite.add(this.composite, this.wheels);
     Composite.add(this.composite, axels);
 
-    Composite.translate(this.composite, position);
+    // calculate the position where the center of the body should be placed.
+    // The provided position is the x coordinate of the frontof the car
+    // and the y coordinate of the bottom of the wheels.
+    const front = Math.max(
+      ...this.composite.bodies
+        .flatMap((body) => body.vertices)
+        .map((vertex) => vertex.x),
+    );
+
+    // Yes, max, because higher y value is lower position.
+    // Don't ask why.
+    const bottom = Math.max(
+      ...this.composite.bodies
+        .flatMap((body) => body.vertices)
+        .map((vertex) => vertex.y),
+    );
+
+    Composite.translate(this.composite, {
+      x: position.x - front,
+      y: position.y - bottom,
+    });
   }
 
   // apply torque to the wheels

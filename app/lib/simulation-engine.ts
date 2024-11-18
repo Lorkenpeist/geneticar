@@ -14,8 +14,8 @@ class SimulationEngine {
   start(options: SimulationOptions) {
     this.cars = Array.from(Array(options.carCount), (_, i) => {
       const car = new Car(options.carProperties, {
-        x: 400 + 50 * i,
-        y: 50 + 100 * i,
+        x: 200 + 200 * i,
+        y: 580,
       });
       return car;
     });
