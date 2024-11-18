@@ -12,10 +12,11 @@ export function SimulationPanel() {
   const [simulationOptions, setSimulationOptions] = useState<SimulationOptions>(
     {
       carCount: 3,
-      carDimensions: {
+      carProperties: {
         width: 100,
         height: 50,
         wheelSize: 30,
+        torque: 0.5,
       },
     },
   );

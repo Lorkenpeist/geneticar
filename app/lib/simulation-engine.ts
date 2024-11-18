@@ -1,42 +1,46 @@
-import { Engine, Runner, Bodies, Composite, World } from "matter-js";
-import { car } from "./car";
-
-export interface CarDimensionOptions {
-  width: number;
-  height: number;
-  wheelSize: number;
-}
+import { Engine, Runner, Bodies, Composite, Events, World } from "matter-js";
+import { Car, CarProperties } from "./car";
 
 export interface SimulationOptions {
   carCount: number;
-  carDimensions: CarDimensionOptions;
+  carProperties: CarProperties;
 }
 
 class SimulationEngine {
   readonly engine = Engine.create();
   private readonly runner = Runner.create();
+  private cars: Car[] = [];
 
   start(options: SimulationOptions) {
-    const cars = Array.from(Array(options.carCount), (_, i) =>
-      car(
-        400 + 50 * i,
-        50 + 100 * i,
-        options.carDimensions.width,
-        options.carDimensions.height,
-        options.carDimensions.wheelSize,
-      ),
-    );
+    this.cars = Array.from(Array(options.carCount), (_, i) => {
+      const car = new Car(options.carProperties, {
+        x: 400 + 50 * i,
+        y: 50 + 100 * i,
+      });
+      return car;
+    });
     const ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
-    Composite.add(this.engine.world, [...cars, ground]);
+    Composite.add(this.engine.world, [
+      ...this.cars.map((car) => car.composite),
+      ground,
+    ]);
+
+    Events.on(this.engine, "beforeUpdate", () =>
+      this.cars.forEach((car) => car.drive()),
+    );
 
     Runner.run(this.runner, this.engine);
   }
 
   stop() {
+    // FIXME: update this after fixing Matter.js type definitions
+    // @ts-expect-error Expected 3 arguments, but got 2.
+    Events.off(this.engine, "beforeUpdate");
     Runner.stop(this.runner);
     Engine.clear(this.engine);
     World.clear(this.engine.world, true);
+    this.cars = [];
   }
 }
 
