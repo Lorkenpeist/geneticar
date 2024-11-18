@@ -10,6 +10,10 @@ export const CAR_WHEEL_SIZE_MAX = 50;
 export const CAR_TORQUE_MIN = 0;
 export const CAR_TORQUE_MAX = 1;
 
+export const ROAD_SEGMENT_WIDTH = 100;
+export const ROAD_SEGMENT_HEIGHT = 10;
+export const ROAD_SEGMENT_COUNT = 100;
+
 // Constants for rendering
 export const WHEEL_SPRITE_LOCATION = "/wheel-sectors-svgrepo-com.svg";
 export const WHEEL_SPRITE_SIZE = 800;

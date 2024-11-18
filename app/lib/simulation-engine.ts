@@ -1,5 +1,10 @@
 import { Engine, Runner, Bodies, Composite, Events, World } from "matter-js";
 import { Car, CarProperties } from "./car";
+import {
+  ROAD_SEGMENT_COUNT,
+  ROAD_SEGMENT_HEIGHT,
+  ROAD_SEGMENT_WIDTH,
+} from "./constants";
 
 export interface SimulationOptions {
   carCount: number;
@@ -15,15 +20,23 @@ class SimulationEngine {
     this.cars = Array.from(Array(options.carCount), (_, i) => {
       const car = new Car(options.carProperties, {
         x: 200 + 200 * i,
-        y: 580,
+        y: 600 - ROAD_SEGMENT_HEIGHT,
       });
       return car;
     });
-    const ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+    const ground = Array.from({ length: ROAD_SEGMENT_COUNT }, (_, i) =>
+      Bodies.rectangle(
+        ROAD_SEGMENT_WIDTH * i,
+        600 - ROAD_SEGMENT_HEIGHT / 2,
+        ROAD_SEGMENT_WIDTH,
+        ROAD_SEGMENT_HEIGHT,
+        { isStatic: true },
+      ),
+    );
 
     Composite.add(this.engine.world, [
       ...this.cars.map((car) => car.composite),
-      ground,
+      ...ground,
     ]);
 
     Events.on(this.engine, "beforeUpdate", () =>
