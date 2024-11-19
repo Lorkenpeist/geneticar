@@ -49,26 +49,12 @@ export class Car {
     Composite.add(this.composite, this.wheels);
     Composite.add(this.composite, axels);
 
-    // calculate the position where the center of the body should be placed.
-    // The provided position is the x coordinate of the frontof the car
-    // and the y coordinate of the bottom of the wheels.
-    const front = Math.max(
-      ...this.composite.bodies
-        .flatMap((body) => body.vertices)
-        .map((vertex) => vertex.x),
-    );
-
-    // Yes, max, because higher y value is lower position.
-    // Don't ask why.
-    const bottom = Math.max(
-      ...this.composite.bodies
-        .flatMap((body) => body.vertices)
-        .map((vertex) => vertex.y),
-    );
-
+    // Calculate the position where the center of the body should be placed.
+    // The provided position is where the x and y coordinates of the
+    // front and bottom of the car should be, respectively.
     Composite.translate(this.composite, {
-      x: position.x - front,
-      y: position.y - bottom,
+      x: position.x - this.front(),
+      y: position.y - this.bottom(),
     });
   }
 
@@ -94,5 +80,25 @@ export class Car {
         },
       },
     });
+  }
+
+  // Find the the x coordinate of the front of the car
+  front() {
+    return Math.max(
+      ...this.composite.bodies
+        .flatMap((body) => body.vertices)
+        .map((vertex) => vertex.x),
+    );
+  }
+
+  // Find the the y coordinate of the bottom of the car
+  bottom() {
+    // Yes, max, because higher y value is lower position.
+    // Don't ask why.
+    return Math.max(
+      ...this.composite.bodies
+        .flatMap((body) => body.vertices)
+        .map((vertex) => vertex.y),
+    );
   }
 }
