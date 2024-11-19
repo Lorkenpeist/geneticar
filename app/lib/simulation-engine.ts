@@ -14,7 +14,7 @@ export interface SimulationOptions {
 class SimulationEngine {
   readonly engine = Engine.create();
   private readonly runner = Runner.create();
-  private cars: Car[] = [];
+  cars: Car[] = [];
 
   start(options: SimulationOptions) {
     this.cars = Array.from(Array(options.carCount), (_, i) => {
@@ -54,6 +54,13 @@ class SimulationEngine {
     Engine.clear(this.engine);
     World.clear(this.engine.world, true);
     this.cars = [];
+  }
+
+  // Find the current leader of the cars, based on its front.
+  leader() {
+    return this.cars.reduceRight((car1, car2) =>
+      car2.front() > car1.front() ? car2 : car1,
+    );
   }
 }
 
