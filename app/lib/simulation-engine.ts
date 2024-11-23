@@ -1,10 +1,7 @@
-import { Engine, Runner, Bodies, Composite, Events, World } from "matter-js";
+import { Engine, Runner, Composite, Events, World } from "matter-js";
 import { Car, CarProperties } from "./car";
-import {
-  ROAD_SEGMENT_COUNT,
-  ROAD_SEGMENT_HEIGHT,
-  ROAD_SEGMENT_WIDTH,
-} from "./constants";
+import { ROAD_SEGMENT_COUNT, ROAD_SEGMENT_WIDTH } from "./constants";
+import { equationRoadGenerator } from "./equation-road-iterator";
 
 export interface SimulationOptions {
   carCount: number;
@@ -19,19 +16,17 @@ class SimulationEngine {
   start(options: SimulationOptions) {
     this.cars = Array.from(Array(options.carCount), (_, i) => {
       const car = new Car(options.carProperties, {
-        x: 200 + 200 * i,
-        y: 600 - ROAD_SEGMENT_HEIGHT,
+        x: -200 * i,
+        y: 0,
       });
       return car;
     });
-    const ground = Array.from({ length: ROAD_SEGMENT_COUNT }, (_, i) =>
-      Bodies.rectangle(
-        ROAD_SEGMENT_WIDTH * i,
-        600 - ROAD_SEGMENT_HEIGHT / 2,
-        ROAD_SEGMENT_WIDTH,
-        ROAD_SEGMENT_HEIGHT,
-        { isStatic: true },
-      ),
+    const roadGenerator = equationRoadGenerator(
+      (x) => (-x * x) / (100 * ROAD_SEGMENT_WIDTH),
+    );
+    const ground = Array.from(
+      { length: ROAD_SEGMENT_COUNT },
+      () => roadGenerator.next().value!,
     );
 
     Composite.add(this.engine.world, [
