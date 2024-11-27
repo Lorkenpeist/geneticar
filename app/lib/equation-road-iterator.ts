@@ -6,7 +6,6 @@ import { ROAD_SEGMENT_HEIGHT, ROAD_SEGMENT_WIDTH } from "./constants";
 export function* equationRoadGenerator(f: (x: number) => number) {
   let x = 0;
   let y = f(0);
-  yield segment({ x, y }, { x: x - 10 * ROAD_SEGMENT_WIDTH, y });
   while (true) {
     const x2 = x + ROAD_SEGMENT_WIDTH;
     const y2 = f(x2);
