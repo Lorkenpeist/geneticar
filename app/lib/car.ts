@@ -1,5 +1,9 @@
 import { Body, Bodies, Composite, Constraint, Vector } from "matter-js";
-import { WHEEL_SPRITE_LOCATION, WHEEL_SPRITE_SIZE } from "./constants";
+import {
+  CAR_WHEEL_MAX_RPM,
+  WHEEL_SPRITE_LOCATION,
+  WHEEL_SPRITE_SIZE,
+} from "./constants";
 
 export interface CarProperties {
   width: number;
@@ -60,10 +64,32 @@ export class Car {
 
   // apply torque to the wheels
   drive() {
+    const averageRelativeWheelSpin =
+      this.wheels
+        .map((wheel) => wheel.angularVelocity)
+        .reduceRight((v1, v2) => v1 + v2) /
+        this.wheels.length -
+      this.body.angularVelocity;
     this.wheels.forEach((wheel) => {
+      // Calculate torque based on current wheel spin.
+      // Torque decreases linearly with RPM.
+
+      // Convert RPM to angular velocity in radians per second
+      const maxAngularVelocity = (CAR_WHEEL_MAX_RPM * 2 * Math.PI) / 60;
+      // Clamp the torque multiplier between 0 and 1 so it doesn't get out of control
+      // if the wheels are spinning too fast in either direction.
+      const torqueMultiplier = Math.min(
+        Math.max(1 - averageRelativeWheelSpin / maxAngularVelocity, 0),
+        1,
+      );
+      const totalTorque = this.props.torque * torqueMultiplier;
       // TODO: variable torque balance
-      wheel.torque += this.props.torque / 2;
-      console.log(`My torque is ${this.props.torque}`);
+      wheel.torque += totalTorque / this.wheels.length;
+      console.log(
+        `I'm spinning at ${(wheel.angularVelocity / (2 * Math.PI)) * 60} RPM`,
+      );
+      console.log(`My max torque is ${this.props.torque}`);
+      console.log(`My adjusted torque is ${totalTorque}`);
     });
   }
 
