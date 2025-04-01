@@ -64,33 +64,25 @@ export class Car {
 
   // apply torque to the wheels
   drive() {
-    const averageRelativeWheelSpin =
-      this.wheels
-        .map((wheel) => wheel.angularVelocity)
-        .reduceRight((v1, v2) => v1 + v2) /
-        this.wheels.length -
-      this.body.angularVelocity;
-    this.wheels.forEach((wheel) => {
-      // Calculate torque based on current wheel spin.
-      // Torque decreases linearly with RPM.
+    // For now, the car is RWD.  Eventually, it will be RWD, FWD, or AWD.
+    const wheel = this.wheels[0];
 
-      // Convert RPM to angular velocity in radians per second
-      const maxAngularVelocity = (CAR_WHEEL_MAX_RPM * 2 * Math.PI) / 60;
-      // Clamp the torque multiplier between 0 and 1 so it doesn't get out of control
-      // if the wheels are spinning too fast in either direction.
-      const torqueMultiplier = Math.min(
-        Math.max(1 - averageRelativeWheelSpin / maxAngularVelocity, 0),
-        1,
-      );
-      const totalTorque = this.props.torque * torqueMultiplier;
-      // TODO: variable torque balance
-      wheel.torque += totalTorque / this.wheels.length;
-      console.log(
-        `I'm spinning at ${(wheel.angularVelocity / (2 * Math.PI)) * 60} RPM`,
-      );
-      console.log(`My max torque is ${this.props.torque}`);
-      console.log(`My adjusted torque is ${totalTorque}`);
-    });
+    // Get the adjusted torque based on the RPM limit.
+    // The adjusted torque decreases linearly from max to 0
+    // based on the ratio of current RPM to max RPM.
+    const currentWheelSpin = wheel.angularVelocity - this.body.angularVelocity;
+    const maxWheelSpin =
+      (CAR_WHEEL_MAX_RPM * 2 * Math.PI) /
+      (60 /*time steps per second*/ * 60) /*seconds per minute*/;
+
+    // Clamp the torque multiplier between 0 and 1 so it doesn't get out of control
+    // if the wheels are spinning too fast in either direction.
+    const torqueMultiplier = Math.min(
+      Math.max(1 - currentWheelSpin / maxWheelSpin, 0),
+      1,
+    );
+
+    wheel.torque += this.props.torque * torqueMultiplier;
   }
 
   // construct the wheel
