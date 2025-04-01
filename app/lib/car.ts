@@ -69,8 +69,8 @@ export class Car {
     // based on the ratio of current RPM to max RPM.
     const currentWheelSpin = wheel.angularVelocity - this.body.angularVelocity;
     const maxWheelSpin =
-      (this.props.rpmLimit * 2 * Math.PI) /
-      (60 /*time steps per second*/ * 60) /*seconds per minute*/;
+      // 60 time steps per second, 60 seconds per minute
+      (this.props.rpmLimit * 2 * Math.PI) / (60 * 60);
 
     // Clamp the torque multiplier between 0 and 1 so it doesn't get out of control
     // if the wheels are spinning too fast in either direction.
