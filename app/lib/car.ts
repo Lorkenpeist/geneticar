@@ -15,9 +15,9 @@ export class Car {
   // The physical Matter.js representation of the car
   readonly composite: Composite;
   // the body of the car
-  private readonly body: Body;
+  readonly body: Body;
   // The wheels of the car
-  private readonly wheels: Body[];
+  readonly wheels: Body[];
 
   constructor(props: CarProperties, position: Vector) {
     this.props = { ...props };
