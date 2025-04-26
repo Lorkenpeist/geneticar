@@ -9,6 +9,8 @@ export const CAR_WHEEL_SIZE_MIN = 10;
 export const CAR_WHEEL_SIZE_MAX = 50;
 export const CAR_TORQUE_MIN = 0;
 export const CAR_TORQUE_MAX = 1;
+export const CAR_RPM_LIMIT_MIN = 100;
+export const CAR_RPM_LIMIT_MAX = 1000;
 
 export const ROAD_SEGMENT_WIDTH = 100;
 export const ROAD_SEGMENT_HEIGHT = 10;

@@ -11,6 +11,8 @@ import {
   CAR_WIDTH_MIN,
   CAR_TORQUE_MIN,
   CAR_TORQUE_MAX,
+  CAR_RPM_LIMIT_MAX,
+  CAR_RPM_LIMIT_MIN,
 } from "@/app/lib/constants";
 import { SimulationOptions } from "@/app/lib/simulation-engine";
 import DiscreetSlider from "./discreet-slider";
@@ -27,6 +29,7 @@ const FormSchema = z.object({
       .gte(CAR_WHEEL_SIZE_MIN)
       .lte(CAR_WHEEL_SIZE_MAX),
     torque: z.coerce.number().gte(CAR_TORQUE_MIN).lte(CAR_TORQUE_MAX),
+    rpmLimit: z.coerce.number().gte(CAR_RPM_LIMIT_MIN).lte(CAR_RPM_LIMIT_MAX),
   }),
 });
 
@@ -45,6 +48,7 @@ export default function SimulationOptionsForm({
         height: formData.get("carHeight"),
         wheelSize: formData.get("carWheelSize"),
         torque: formData.get("carTorque"),
+        rpmLimit: formData.get("carRpmLimit"),
       },
     });
     setOptions(newOptions);
@@ -102,6 +106,15 @@ export default function SimulationOptionsForm({
                 max={CAR_TORQUE_MAX}
                 step={0.1}
                 defaultValue={options.carProperties.torque}
+              />
+              <DiscreetSlider
+                id="carRpmLimit"
+                name="carRpmLimit"
+                label="RPM limit"
+                min={CAR_RPM_LIMIT_MIN}
+                max={CAR_RPM_LIMIT_MAX}
+                step={100}
+                defaultValue={options.carProperties.rpmLimit}
               />
             </div>
           </div>

@@ -6,6 +6,7 @@ export interface CarProperties {
   height: number;
   wheelSize: number;
   torque: number;
+  rpmLimit: number;
 }
 
 export class Car {
@@ -14,9 +15,9 @@ export class Car {
   // The physical Matter.js representation of the car
   readonly composite: Composite;
   // the body of the car
-  private readonly body: Body;
+  readonly body: Body;
   // The wheels of the car
-  private readonly wheels: Body[];
+  readonly wheels: Body[];
 
   constructor(props: CarProperties, position: Vector) {
     this.props = { ...props };
@@ -60,11 +61,25 @@ export class Car {
 
   // apply torque to the wheels
   drive() {
-    this.wheels.forEach((wheel) => {
-      // TODO: variable torque balance
-      wheel.torque += this.props.torque / 2;
-      console.log(`My torque is ${this.props.torque}`);
-    });
+    // For now, the car is RWD.  Eventually, it will be RWD, FWD, or AWD.
+    const wheel = this.wheels[0];
+
+    // Get the adjusted torque based on the RPM limit.
+    // The adjusted torque decreases linearly from max to 0
+    // based on the ratio of current RPM to max RPM.
+    const currentWheelSpin = wheel.angularVelocity - this.body.angularVelocity;
+    const maxWheelSpin =
+      // 60 time steps per second, 60 seconds per minute
+      (this.props.rpmLimit * 2 * Math.PI) / (60 * 60);
+
+    // Clamp the torque multiplier between 0 and 1 so it doesn't get out of control
+    // if the wheels are spinning too fast in either direction.
+    const torqueMultiplier = Math.min(
+      Math.max(1 - currentWheelSpin / maxWheelSpin, 0),
+      1,
+    );
+
+    wheel.torque += this.props.torque * torqueMultiplier;
   }
 
   // construct the wheel

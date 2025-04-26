@@ -1,6 +1,6 @@
 {
   "name": "geneticar",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "A genetic algorithm racing simulator",
   "license": "MIT",
   "author": "Leif Gaebler <Lorkenpeist@gmail.com>",
@@ -10,7 +10,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -21,6 +23,12 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.24.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/jest": "^29.5.14",
     "@types/matter-js": "^0.19.7",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -29,10 +37,13 @@
     "eslint-config-next": "15.0.3",
     "eslint-config-prettier": "^9.1.0",
     "husky": "^9.1.6",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.10",
     "postcss": "^8",
     "prettier": "=3.3.3",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   },
   "lint-staged": {
