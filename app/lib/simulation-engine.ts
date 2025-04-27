@@ -65,10 +65,7 @@ class SimulationEngine {
   }
 
   stop() {
-    // FIXME: update this after fixing Matter.js type definitions
-    // @ts-expect-error Expected 3 arguments, but got 2.
     Events.off(this.engine, "beforeUpdate");
-    // @ts-expect-error Expected 3 arguments, but got 2.
     Events.off(this.engine, "afterUpdate");
     Runner.stop(this.runner);
     Engine.clear(this.engine);
