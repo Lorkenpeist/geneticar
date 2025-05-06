@@ -7,17 +7,25 @@ import {
   SimulationOptions,
 } from "@/app/lib/simulation-engine";
 import SimulationOptionsForm from "./simulation-options-form";
+import {
+  CAR_COUNT_DEFAULT,
+  CAR_HEIGHT,
+  CAR_RPM_LIMIT,
+  CAR_TORQUE,
+  CAR_WHEEL_SIZE,
+  CAR_WIDTH,
+} from "../lib/constants";
 
 export function SimulationPanel() {
   const [simulationOptions, setSimulationOptions] = useState<SimulationOptions>(
     {
-      carCount: 3,
+      carCount: CAR_COUNT_DEFAULT,
       carProperties: {
-        width: 100,
-        height: 50,
-        wheelSize: 30,
-        torque: 0.5,
-        rpmLimit: 300,
+        width: CAR_WIDTH.default,
+        height: CAR_HEIGHT.default,
+        wheelSize: CAR_WHEEL_SIZE.default,
+        torque: CAR_TORQUE.default,
+        rpmLimit: CAR_RPM_LIMIT.default,
       },
     },
   );
