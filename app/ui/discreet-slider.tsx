@@ -43,6 +43,11 @@ export default function DiscreetSlider({
         </datalist>
         <div>{max}</div>
       </div>
+      {/* TODO: Update this value in real time as the slider moves */}
+      {/* TODO: Make this an interactive form input */}
+      {/* TODO: Arrange elements within this component */}
+      {/* TODO: Rename to PropertySlider, handle non-discreet */}
+      <div>Current value: {defaultValue}</div>
     </div>
   );
 }
