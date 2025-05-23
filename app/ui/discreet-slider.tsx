@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export default function DiscreetSlider({
   id,
   name,
@@ -15,6 +17,8 @@ export default function DiscreetSlider({
   step?: number;
   defaultValue: number;
 }) {
+  const [value, setValue] = useState(`${defaultValue}`);
+
   return (
     <div className="flex flex-col items-center text-xs font-medium">
       <label htmlFor={id} className="ml-2 flex">
@@ -29,25 +33,26 @@ export default function DiscreetSlider({
           min={min}
           max={max}
           step={step}
-          defaultValue={defaultValue}
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
           list={`${id}:markers`}
-          className="cursor-pointer"
         />
         <datalist id={`${id}:markers`}>
           {Array.from(
             { length: (max - min) / step + 1 },
             (_, i) => i * step + min,
           ).map((i) => (
-            <option value={i} key={i.toString()}></option>
+            <option value={i} key={`${i}`}></option>
           ))}
         </datalist>
         <div>{max}</div>
       </div>
-      {/* TODO: Update this value in real time as the slider moves */}
       {/* TODO: Make this an interactive form input */}
       {/* TODO: Arrange elements within this component */}
       {/* TODO: Rename to PropertySlider, handle non-discreet */}
-      <div>Current value: {defaultValue}</div>
+      <div>Current value: {value}</div>
     </div>
   );
 }
