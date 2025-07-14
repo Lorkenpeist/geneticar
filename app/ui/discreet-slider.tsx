@@ -19,13 +19,16 @@ export default function DiscreetSlider({
 }) {
   const [value, setValue] = useState(`${defaultValue}`);
 
+  {
+    /* TODO: Rename to PropertySlider, handle non-discreet */
+  }
   return (
     <div className="flex flex-col items-center text-xs font-medium">
-      <label htmlFor={id} className="ml-2 flex">
-        {label}
+      <label htmlFor={id}>
+        {label}: {value}
       </label>
-      <div className="flex flex-row space-x-1 items-center">
-        <div>{min}</div>
+      <div className="flex flex-row gap-1 items-center">
+        <div className="w-5 text-right">{min}</div>
         <input
           id={id}
           name={name}
@@ -47,12 +50,8 @@ export default function DiscreetSlider({
             <option value={i} key={`${i}`}></option>
           ))}
         </datalist>
-        <div>{max}</div>
+        <div className="w-7 text-left">{max}</div>
       </div>
-      {/* TODO: Make this an interactive form input */}
-      {/* TODO: Arrange elements within this component */}
-      {/* TODO: Rename to PropertySlider, handle non-discreet */}
-      <div>Current value: {value}</div>
     </div>
   );
 }

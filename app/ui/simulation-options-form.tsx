@@ -55,11 +55,12 @@ export default function SimulationOptionsForm({
     <form action={formAction}>
       <div className="rounded-md bg-gray-100 dark:bg-gray-800 p-4 md:p-6">
         <fieldset>
-          <legend className="mb-2 block text-sm font-medium">
+          <legend className="mb-2 text-sm font-medium">
             Simulation Options
           </legend>
           <div className="rounded-md border border-gray-200 bg-white dark:bg-gray-900 px-[14px] py-3">
             <div className="flex flex-col gap-4">
+              {/* TODO: make this a loop */}
               <DiscreetSlider
                 id="carCount"
                 name="carCount"
@@ -68,7 +69,6 @@ export default function SimulationOptionsForm({
                 max={CAR_COUNT_MAX}
                 defaultValue={options.carCount}
               />
-              {/* TODO: create CarPropertySlider component */}
               <DiscreetSlider
                 id="carWidth"
                 name="carWidth"
