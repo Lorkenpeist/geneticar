@@ -2,7 +2,7 @@ import { Body, Bodies, Composite, Constraint, Vector } from "matter-js";
 import { WHEEL_SPRITE_LOCATION, WHEEL_SPRITE_SIZE } from "./constants";
 
 export interface CarProperties {
-  width: number;
+  length: number;
   height: number;
   wheelSize: number;
   torque: number;
@@ -22,13 +22,13 @@ export class Car {
   constructor(props: CarProperties, position: Vector) {
     this.props = { ...props };
     const group = Body.nextGroup(true);
-    const wheelAOffset = -props.width / 2;
-    const wheelBOffset = props.width / 2;
+    const wheelAOffset = -props.length / 2;
+    const wheelBOffset = props.length / 2;
     const wheelYOffset = props.height / 2;
 
     this.composite = Composite.create({ label: "Car" });
 
-    this.body = Bodies.rectangle(0, 0, props.width, props.height, {
+    this.body = Bodies.rectangle(0, 0, props.length, props.height, {
       collisionFilter: { group: group },
       density: 0.0002,
     });

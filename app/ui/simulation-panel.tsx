@@ -13,7 +13,7 @@ import {
   CAR_RPM_LIMIT,
   CAR_TORQUE,
   CAR_WHEEL_SIZE,
-  CAR_WIDTH,
+  CAR_LENGTH,
 } from "../lib/constants";
 
 export function SimulationPanel() {
@@ -21,7 +21,7 @@ export function SimulationPanel() {
     {
       carCount: CAR_COUNT_DEFAULT,
       carProperties: {
-        width: CAR_WIDTH.default,
+        length: CAR_LENGTH.default,
         height: CAR_HEIGHT.default,
         wheelSize: CAR_WHEEL_SIZE.default,
         torque: CAR_TORQUE.default,

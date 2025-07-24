@@ -1,6 +1,6 @@
 import { Engine, Runner, Composite, Events, World, Bodies } from "matter-js";
 import { Car, CarProperties } from "./car";
-import { ROAD_SEGMENT_HEIGHT, ROAD_SEGMENT_WIDTH } from "./constants";
+import { ROAD_SEGMENT_HEIGHT, ROAD_SEGMENT_LENGTH } from "./constants";
 import { equationRoadGenerator } from "./equation-road-iterator";
 
 export interface SimulationOptions {
@@ -15,7 +15,7 @@ class SimulationEngine {
 
   start(options: SimulationOptions) {
     // The equation that defines the curve of the road
-    const roadFunction = (x: number) => (-x * x) / (100 * ROAD_SEGMENT_WIDTH);
+    const roadFunction = (x: number) => (-x * x) / (100 * ROAD_SEGMENT_LENGTH);
 
     this.cars = Array.from(Array(options.carCount), (_, i) => {
       const car = new Car(options.carProperties, {
@@ -26,9 +26,9 @@ class SimulationEngine {
     });
 
     const startingRoad = Bodies.rectangle(
-      -5 * ROAD_SEGMENT_WIDTH,
+      -5 * ROAD_SEGMENT_LENGTH,
       roadFunction(0) + ROAD_SEGMENT_HEIGHT / 2,
-      10 * ROAD_SEGMENT_WIDTH,
+      10 * ROAD_SEGMENT_LENGTH,
       ROAD_SEGMENT_HEIGHT,
       { isStatic: true },
     );
@@ -39,7 +39,7 @@ class SimulationEngine {
     let frontRoadPosition = startingRoad.position.x;
 
     const roadGenerator = equationRoadGenerator(
-      (x) => (-x * x) / (100 * ROAD_SEGMENT_WIDTH),
+      (x) => (-x * x) / (100 * ROAD_SEGMENT_LENGTH),
     );
 
     Composite.add(this.engine.world, [

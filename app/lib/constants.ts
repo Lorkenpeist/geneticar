@@ -15,8 +15,7 @@ export const CAR_COUNT_MIN = 1;
 export const CAR_COUNT_MAX = 4;
 export const CAR_COUNT_DEFAULT = 3;
 
-// FIXME: rename this to length everywhere
-export const CAR_WIDTH: ConfigurableCarProp = {
+export const CAR_LENGTH: ConfigurableCarProp = {
   min: 10,
   max: 100,
   default: 100,
@@ -48,7 +47,7 @@ export const CAR_RPM_LIMIT: ConfigurableCarProp = {
   stepSize: 100,
 };
 
-export const ROAD_SEGMENT_WIDTH = 100;
+export const ROAD_SEGMENT_LENGTH = 100;
 export const ROAD_SEGMENT_HEIGHT = 10;
 
 // Constants for rendering

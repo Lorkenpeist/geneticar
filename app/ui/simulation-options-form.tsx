@@ -4,7 +4,7 @@ import {
   CAR_COUNT_MAX,
   CAR_COUNT_MIN,
   ConfigurableCarProp,
-  CAR_WIDTH,
+  CAR_LENGTH,
   CAR_HEIGHT,
   CAR_WHEEL_SIZE,
   CAR_TORQUE,
@@ -22,7 +22,7 @@ function carPropSchema(carProp: ConfigurableCarProp) {
 const FormSchema = z.object({
   carCount: z.coerce.number().int().gte(CAR_COUNT_MIN).lte(CAR_COUNT_MAX),
   carProperties: z.object({
-    width: carPropSchema(CAR_WIDTH),
+    length: carPropSchema(CAR_LENGTH),
     height: carPropSchema(CAR_HEIGHT),
     wheelSize: carPropSchema(CAR_WHEEL_SIZE),
     torque: carPropSchema(CAR_TORQUE),
@@ -41,7 +41,7 @@ export default function SimulationOptionsForm({
     const newOptions: SimulationOptions = FormSchema.parse({
       carCount: formData.get("carCount"),
       carProperties: {
-        width: formData.get("carWidth"),
+        length: formData.get("carLength"),
         height: formData.get("carHeight"),
         wheelSize: formData.get("carWheelSize"),
         torque: formData.get("carTorque"),
@@ -70,13 +70,13 @@ export default function SimulationOptionsForm({
                 defaultValue={options.carCount}
               />
               <DiscreetSlider
-                id="carWidth"
-                name="carWidth"
-                label="Width"
-                min={CAR_WIDTH.min}
-                max={CAR_WIDTH.max}
-                step={CAR_WIDTH.stepSize}
-                defaultValue={options.carProperties.width}
+                id="carLength"
+                name="carLength"
+                label="Length"
+                min={CAR_LENGTH.min}
+                max={CAR_LENGTH.max}
+                step={CAR_LENGTH.stepSize}
+                defaultValue={options.carProperties.length}
               />
               <DiscreetSlider
                 id="carHeight"
