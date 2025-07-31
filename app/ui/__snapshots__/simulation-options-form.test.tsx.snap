@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SimulationOptionsForm renders correctly 1`] = `
+<div>
+  <form
+    action="javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider using form.requestSubmit() instead. If you\\'re trying to use event.stopPropagation() in a submit event handler, consider also calling event.preventDefault().')"
+  >
+    <div
+      class="rounded-md bg-gray-100 dark:bg-gray-800 p-4 md:p-6"
+    >
+      <fieldset>
+        <legend
+          class="mb-2 text-sm font-medium"
+        >
+          Simulation Options
+        </legend>
+        <div
+          class="rounded-md border border-gray-200 bg-white dark:bg-gray-900 px-[14px] py-3"
+        >
+          <div
+            class="flex flex-col gap-4"
+          >
+            <input
+              aria-label="Number of Cars"
+              id="carCount"
+              max="4"
+              min="1"
+              name="carCount"
+              step="1"
+              type="range"
+              value="3"
+            />
+            <input
+              aria-label="Length"
+              id="car_length"
+              max="100"
+              min="10"
+              name="car_length"
+              step="10"
+              type="range"
+              value="100"
+            />
+            <input
+              aria-label="Height"
+              id="car_height"
+              max="100"
+              min="10"
+              name="car_height"
+              step="10"
+              type="range"
+              value="50"
+            />
+            <input
+              aria-label="Wheel Radius"
+              id="car_wheelRadius"
+              max="50"
+              min="10"
+              name="car_wheelRadius"
+              step="10"
+              type="range"
+              value="30"
+            />
+            <input
+              aria-label="Engine Torque"
+              id="car_engineTorque"
+              max="1"
+              min="0"
+              name="car_engineTorque"
+              step="0.1"
+              type="range"
+              value="0.5"
+            />
+            <input
+              aria-label="RPM Limit"
+              id="car_rpmLimit"
+              max="1000"
+              min="100"
+              name="car_rpmLimit"
+              step="100"
+              type="range"
+              value="300"
+            />
+          </div>
+        </div>
+      </fieldset>
+      <div
+        class="mt-6 flex justify-end gap-4"
+      >
+        <button
+          class="flex h-10 items-center rounded-lg bg-green-500 dark:bg-green-800 px-4 text-sm font-medium text-white transition-colors hover:bg-green-400 dark:hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-blue-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+          type="submit"
+        >
+          Update
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;

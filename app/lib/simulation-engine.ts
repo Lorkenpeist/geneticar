@@ -1,7 +1,8 @@
 import { Engine, Runner, Composite, Events, World, Bodies } from "matter-js";
-import { Car, CarProperties } from "./car";
+import { Car } from "./car";
 import { ROAD_SEGMENT_HEIGHT, ROAD_SEGMENT_LENGTH } from "./constants";
 import { equationRoadGenerator } from "./equation-road-iterator";
+import { CarProperties } from "./car-properties";
 
 export interface SimulationOptions {
   carCount: number;

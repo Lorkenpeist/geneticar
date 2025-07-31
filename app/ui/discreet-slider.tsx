@@ -1,5 +1,15 @@
 import { useState } from "react";
 
+export interface DiscreetSliderProps {
+  id: string;
+  name: string;
+  label: string;
+  min: number;
+  max: number;
+  step?: number;
+  defaultValue: number;
+}
+
 export default function DiscreetSlider({
   id,
   name,
@@ -8,15 +18,7 @@ export default function DiscreetSlider({
   max,
   step = 1,
   defaultValue,
-}: {
-  id: string;
-  name: string;
-  label: string;
-  min: number;
-  max: number;
-  step?: number;
-  defaultValue: number;
-}) {
+}: DiscreetSliderProps) {
   const [value, setValue] = useState(`${defaultValue}`);
 
   {

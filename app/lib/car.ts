@@ -1,13 +1,6 @@
 import { Body, Bodies, Composite, Constraint, Vector } from "matter-js";
 import { WHEEL_SPRITE_LOCATION, WHEEL_SPRITE_SIZE } from "./constants";
-
-export interface CarProperties {
-  length: number;
-  height: number;
-  wheelSize: number;
-  torque: number;
-  rpmLimit: number;
-}
+import { CarProperties } from "./car-properties";
 
 export class Car {
   // The physical properties of the car
@@ -79,19 +72,19 @@ export class Car {
       1,
     );
 
-    wheel.torque += this.props.torque * torqueMultiplier;
+    wheel.torque += this.props.engineTorque * torqueMultiplier;
   }
 
   // construct the wheel
   private wheel(group: number, x: number, y: number) {
-    return Bodies.circle(x, y, this.props.wheelSize, {
+    return Bodies.circle(x, y, this.props.wheelRadius, {
       collisionFilter: { group },
       friction: 0.8,
       render: {
         sprite: {
           texture: WHEEL_SPRITE_LOCATION,
-          xScale: (2 * this.props.wheelSize) / WHEEL_SPRITE_SIZE,
-          yScale: (2 * this.props.wheelSize) / WHEEL_SPRITE_SIZE,
+          xScale: (2 * this.props.wheelRadius) / WHEEL_SPRITE_SIZE,
+          yScale: (2 * this.props.wheelRadius) / WHEEL_SPRITE_SIZE,
         },
       },
     });
