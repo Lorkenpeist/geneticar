@@ -1,36 +1,34 @@
 import type { Dispatch, SetStateAction } from "react";
 import { z } from "zod";
 import {
+  CAR_COUNT_LABEL,
   CAR_COUNT_MAX,
   CAR_COUNT_MIN,
-  CAR_HEIGHT_MAX,
-  CAR_HEIGHT_MIN,
-  CAR_WHEEL_SIZE_MAX,
-  CAR_WHEEL_SIZE_MIN,
-  CAR_WIDTH_MAX,
-  CAR_WIDTH_MIN,
-  CAR_TORQUE_MIN,
-  CAR_TORQUE_MAX,
-  CAR_RPM_LIMIT_MAX,
-  CAR_RPM_LIMIT_MIN,
 } from "@/app/lib/constants";
+import {
+  CarPropSpec,
+  CAR_PROP_SPECS,
+  CAR_PROP_KEYS,
+} from "@/app/lib/car-properties";
 import { SimulationOptions } from "@/app/lib/simulation-engine";
-import DiscreetSlider from "./discreet-slider";
+import PropertySlider from "./property-slider";
 import { Button } from "./button";
+
+// Create the validation schema for a car property
+function carPropSchema(carPropSpec: CarPropSpec) {
+  return z.coerce.number().gte(carPropSpec.min).lte(carPropSpec.max);
+}
 
 const FormSchema = z.object({
   carCount: z.coerce.number().int().gte(CAR_COUNT_MIN).lte(CAR_COUNT_MAX),
-  carProperties: z.object({
-    width: z.coerce.number().int().gte(CAR_WIDTH_MIN).lte(CAR_WIDTH_MAX),
-    height: z.coerce.number().int().gte(CAR_HEIGHT_MIN).lte(CAR_HEIGHT_MAX),
-    wheelSize: z.coerce
-      .number()
-      .int()
-      .gte(CAR_WHEEL_SIZE_MIN)
-      .lte(CAR_WHEEL_SIZE_MAX),
-    torque: z.coerce.number().gte(CAR_TORQUE_MIN).lte(CAR_TORQUE_MAX),
-    rpmLimit: z.coerce.number().gte(CAR_RPM_LIMIT_MIN).lte(CAR_RPM_LIMIT_MAX),
-  }),
+  carProperties: z.object(
+    Object.fromEntries(
+      Object.entries(CAR_PROP_SPECS).map(([key, spec]) => [
+        key,
+        carPropSchema(spec),
+      ]),
+    ),
+  ),
 });
 
 export default function SimulationOptionsForm({
@@ -41,16 +39,12 @@ export default function SimulationOptionsForm({
   setOptions: Dispatch<SetStateAction<SimulationOptions>>;
 }) {
   function formAction(formData: FormData) {
-    const newOptions: SimulationOptions = FormSchema.parse({
+    const newOptions = FormSchema.parse({
       carCount: formData.get("carCount"),
-      carProperties: {
-        width: formData.get("carWidth"),
-        height: formData.get("carHeight"),
-        wheelSize: formData.get("carWheelSize"),
-        torque: formData.get("carTorque"),
-        rpmLimit: formData.get("carRpmLimit"),
-      },
-    });
+      carProperties: Object.fromEntries(
+        CAR_PROP_KEYS.map((key) => [key, formData.get(`car_${key}`)]),
+      ),
+    }) as SimulationOptions;
     setOptions(newOptions);
   }
 
@@ -58,64 +52,33 @@ export default function SimulationOptionsForm({
     <form action={formAction}>
       <div className="rounded-md bg-gray-100 dark:bg-gray-800 p-4 md:p-6">
         <fieldset>
-          <legend className="mb-2 block text-sm font-medium">
+          <legend className="mb-2 text-sm font-medium">
             Simulation Options
           </legend>
           <div className="rounded-md border border-gray-200 bg-white dark:bg-gray-900 px-[14px] py-3">
             <div className="flex flex-col gap-4">
-              <DiscreetSlider
+              <PropertySlider
+                key="carCount"
                 id="carCount"
                 name="carCount"
-                label="Number of cars"
+                label={CAR_COUNT_LABEL}
                 min={CAR_COUNT_MIN}
                 max={CAR_COUNT_MAX}
+                step={1}
                 defaultValue={options.carCount}
               />
-              <DiscreetSlider
-                id="carWidth"
-                name="carWidth"
-                label="Width"
-                min={CAR_WIDTH_MIN}
-                max={CAR_WIDTH_MAX}
-                step={10}
-                defaultValue={options.carProperties.width}
-              />
-              <DiscreetSlider
-                id="carHeight"
-                name="carHeight"
-                label="Height"
-                min={CAR_HEIGHT_MIN}
-                max={CAR_HEIGHT_MAX}
-                step={10}
-                defaultValue={options.carProperties.height}
-              />
-              <DiscreetSlider
-                id="carWheelSize"
-                name="carWheelSize"
-                label="Wheel size"
-                min={CAR_WHEEL_SIZE_MIN}
-                max={CAR_WHEEL_SIZE_MAX}
-                step={10}
-                defaultValue={options.carProperties.wheelSize}
-              />
-              <DiscreetSlider
-                id="carTorque"
-                name="carTorque"
-                label="Torque"
-                min={CAR_TORQUE_MIN}
-                max={CAR_TORQUE_MAX}
-                step={0.1}
-                defaultValue={options.carProperties.torque}
-              />
-              <DiscreetSlider
-                id="carRpmLimit"
-                name="carRpmLimit"
-                label="RPM limit"
-                min={CAR_RPM_LIMIT_MIN}
-                max={CAR_RPM_LIMIT_MAX}
-                step={100}
-                defaultValue={options.carProperties.rpmLimit}
-              />
+              {CAR_PROP_KEYS.map((key) => (
+                <PropertySlider
+                  key={key}
+                  id={`car_${key}`}
+                  name={`car_${key}`}
+                  label={CAR_PROP_SPECS[key].label}
+                  min={CAR_PROP_SPECS[key].min}
+                  max={CAR_PROP_SPECS[key].max}
+                  step={CAR_PROP_SPECS[key].stepSize}
+                  defaultValue={options.carProperties[key]}
+                />
+              ))}
             </div>
           </div>
         </fieldset>

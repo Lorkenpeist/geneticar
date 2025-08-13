@@ -51,10 +51,10 @@ describe("Car", () => {
       }) => {
         const car = new Car(
           {
-            width: 100,
+            length: 100,
             height: 50,
-            wheelSize: 30,
-            torque: engineTorque,
+            wheelRadius: 30,
+            engineTorque: engineTorque,
             rpmLimit: rpmLimit,
           },
           { x: 0, y: 0 },

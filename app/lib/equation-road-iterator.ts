@@ -1,5 +1,5 @@
 import { Bodies, Vector } from "matter-js";
-import { ROAD_SEGMENT_HEIGHT, ROAD_SEGMENT_WIDTH } from "./constants";
+import { ROAD_SEGMENT_HEIGHT, ROAD_SEGMENT_LENGTH } from "./constants";
 
 // Iteratively generates segments of road from a mathematical equation.
 // Segments are generated to approximate the shape of the curve defined by the equation.
@@ -7,7 +7,7 @@ export function* equationRoadGenerator(f: (x: number) => number) {
   let x = 0;
   let y = f(0);
   while (true) {
-    const x2 = x + ROAD_SEGMENT_WIDTH;
+    const x2 = x + ROAD_SEGMENT_LENGTH;
     const y2 = f(x2);
     yield segment({ x, y }, { x: x2, y: y2 });
     x = x2;
