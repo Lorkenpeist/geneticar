@@ -6,10 +6,10 @@ import {
   CAR_COUNT_LABEL,
   CAR_COUNT_MAX,
 } from "../lib/constants";
-import { DiscreetSliderProps } from "./discreet-slider";
+import { PropertySliderProps } from "./property-slider";
 import { CAR_PROP_SPECS } from "../lib/car-properties";
 
-jest.mock("./discreet-slider", () => ({
+jest.mock("./property-slider", () => ({
   __esModule: true,
   default: ({
     id,
@@ -17,9 +17,9 @@ jest.mock("./discreet-slider", () => ({
     label,
     min,
     max,
-    step = 1,
+    step,
     defaultValue,
-  }: DiscreetSliderProps) => (
+  }: PropertySliderProps) => (
     <input
       id={id}
       name={name}

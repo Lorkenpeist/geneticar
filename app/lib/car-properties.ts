@@ -4,7 +4,8 @@ export interface CarPropSpec {
   min: number;
   max: number;
   default: number;
-  // The step size for discrete sliders
+  // The step size for discrete properties, if applicable
+  // If not specified, the property is considered continuous
   stepSize?: number;
 }
 
@@ -23,35 +24,30 @@ export const CAR_PROP_SPECS: Record<CarPropKey, CarPropSpec> = {
     min: 10,
     max: 100,
     default: 100,
-    stepSize: 10,
   },
   height: {
     label: "Height",
     min: 10,
     max: 100,
     default: 50,
-    stepSize: 10,
   },
   wheelRadius: {
     label: "Wheel Radius",
     min: 10,
     max: 50,
     default: 30,
-    stepSize: 10,
   },
   engineTorque: {
     label: "Engine Torque",
     min: 0,
     max: 1,
     default: 0.5,
-    stepSize: 0.1,
   },
   rpmLimit: {
     label: "RPM Limit",
     min: 100,
     max: 1000,
     default: 300,
-    stepSize: 100,
   },
 };
 

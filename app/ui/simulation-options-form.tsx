@@ -11,7 +11,7 @@ import {
   CAR_PROP_KEYS,
 } from "@/app/lib/car-properties";
 import { SimulationOptions } from "@/app/lib/simulation-engine";
-import DiscreetSlider from "./discreet-slider";
+import PropertySlider from "./property-slider";
 import { Button } from "./button";
 
 // Create the validation schema for a car property
@@ -57,17 +57,18 @@ export default function SimulationOptionsForm({
           </legend>
           <div className="rounded-md border border-gray-200 bg-white dark:bg-gray-900 px-[14px] py-3">
             <div className="flex flex-col gap-4">
-              <DiscreetSlider
+              <PropertySlider
                 key="carCount"
                 id="carCount"
                 name="carCount"
                 label={CAR_COUNT_LABEL}
                 min={CAR_COUNT_MIN}
                 max={CAR_COUNT_MAX}
+                step={1}
                 defaultValue={options.carCount}
               />
               {CAR_PROP_KEYS.map((key) => (
-                <DiscreetSlider
+                <PropertySlider
                   key={key}
                   id={`car_${key}`}
                   name={`car_${key}`}

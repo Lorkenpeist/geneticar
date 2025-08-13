@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PropertySlider renders continuous slider correctly 1`] = `
+<div>
+  <div
+    class="flex flex-col items-center text-xs font-medium"
+  >
+    <label
+      for="continuous-slider"
+    >
+      Continuous Slider
+      : 
+      3
+    </label>
+    <div
+      class="flex flex-row gap-1 items-center"
+    >
+      <div
+        class="w-5 text-right"
+      >
+        1
+      </div>
+      <input
+        id="continuous-slider"
+        max="5"
+        min="1"
+        name="continuousSlider"
+        step="0.01"
+        type="range"
+        value="3"
+      />
+      <div
+        class="w-7 text-left"
+      >
+        5
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PropertySlider renders discrete slider correctly 1`] = `
+<div>
+  <div
+    class="flex flex-col items-center text-xs font-medium"
+  >
+    <label
+      for="discrete-slider"
+    >
+      Discrete Slider
+      : 
+      3
+    </label>
+    <div
+      class="flex flex-row gap-1 items-center"
+    >
+      <div
+        class="w-5 text-right"
+      >
+        1
+      </div>
+      <input
+        id="discrete-slider"
+        list="discrete-slider:markers"
+        max="5"
+        min="1"
+        name="discreteSlider"
+        step="1"
+        type="range"
+        value="3"
+      />
+      <datalist
+        id="discrete-slider:markers"
+      >
+        <option
+          value="1"
+        />
+        <option
+          value="2"
+        />
+        <option
+          value="3"
+        />
+        <option
+          value="4"
+        />
+        <option
+          value="5"
+        />
+      </datalist>
+      <div
+        class="w-7 text-left"
+      >
+        5
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export interface DiscreetSliderProps {
+export interface PropertySliderProps {
   id: string;
   name: string;
   label: string;
@@ -10,20 +10,18 @@ export interface DiscreetSliderProps {
   defaultValue: number;
 }
 
-export default function DiscreetSlider({
+// A car property slider component that allows users to adjust car properties
+export default function PropertySlider({
   id,
   name,
   label,
   min,
   max,
-  step = 1,
+  step,
   defaultValue,
-}: DiscreetSliderProps) {
+}: PropertySliderProps) {
   const [value, setValue] = useState(`${defaultValue}`);
 
-  {
-    /* TODO: Rename to PropertySlider, handle non-discreet */
-  }
   return (
     <div className="flex flex-col items-center text-xs font-medium">
       <label htmlFor={id}>
@@ -37,21 +35,23 @@ export default function DiscreetSlider({
           type="range"
           min={min}
           max={max}
-          step={step}
+          step={step ?? 0.01}
           value={value}
           onChange={(e) => {
             setValue(e.target.value);
           }}
-          list={`${id}:markers`}
+          {...(step && { list: `${id}:markers` })}
         />
-        <datalist id={`${id}:markers`}>
-          {Array.from(
-            { length: (max - min) / step + 1 },
-            (_, i) => i * step + min,
-          ).map((i) => (
-            <option value={i} key={`${i}`}></option>
-          ))}
-        </datalist>
+        {step && (
+          <datalist id={`${id}:markers`}>
+            {Array.from(
+              { length: (max - min) / step + 1 },
+              (_, i) => i * step + min,
+            ).map((i) => (
+              <option value={i} key={`${i}`}></option>
+            ))}
+          </datalist>
+        )}
         <div className="w-7 text-left">{max}</div>
       </div>
     </div>
